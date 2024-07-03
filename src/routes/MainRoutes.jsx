@@ -6,8 +6,8 @@ import { CartContext } from "../context/CartContext";
 
 const PUBLIC_ROUTES = [
   { id: 1, path: "/", element: <MainPage /> },
-  { id: 5, path: "/tickets", element: <HomePage /> },
-  { id: 8, path: "/cart", element: <CartContext /> },
+  { id: 2, path: "/tickets", element: <HomePage /> },
+  { id: 3, path: "/cart", element: <CartContext /> },
 ];
 
 const MainRoutes = () => {
