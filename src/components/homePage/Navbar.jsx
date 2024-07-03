@@ -26,12 +26,6 @@ const Navbar = () => {
     { id: 2, title: "Виды", link: "/sports" },
     { id: 3, title: "Let's Move", link: "/lets-move" },
     { id: 4, title: "Билеты", link: "/tickets" },
-    { id: 5, title: "Админ2", link: "/admin2" },
-    { id: 6, title: "регистер", link: "/register" },
-    { id: 7, title: "payment", link: "/payment" },
-    { id: 8, title: "cart", link: "/cart" },
-    { id: 9, title: "checkout", link: "/checkout" },
-    { id: 10, title: "home", link: "/" },
   ];
 
   return (
@@ -44,7 +38,7 @@ const Navbar = () => {
               alt="Olympic Rings"
               style={{ ...styles.icon, width: "auto", height: 40 }}
             />
-            <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
+            <Link to={"/"}>
               <Typography
                 className="p"
                 variant="h6"
@@ -100,21 +94,20 @@ const Navbar = () => {
           >
             <MenuIcon style={styles.menuIcon} />
           </IconButton>
-
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleCloseNavMenu}
           >
             {pages.map((page) => (
-              <MenuItem
-                key={page.id}
-                component={Link}
-                to={page.link}
-                onClick={handleCloseNavMenu}
-              >
-                <Typography variant="body1" style={{ color: "#000" }}>
-                  {page.title}
+              <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                <Typography variant="body1">
+                  <Link
+                    to={page.link}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {page.title}
+                  </Link>
                 </Typography>
               </MenuItem>
             ))}
