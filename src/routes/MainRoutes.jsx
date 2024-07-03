@@ -1,25 +1,24 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import MainPage from "../components/homePage/MainPage";
-import EditProduct from "../components/products/EditProduct";
-import AboutPage from "../pages/AboutPage";
-import AdminPage from "../pages/AdminPage";
+import { Routes, Route } from "react-router-dom";
 import ProductPage from "../pages/ProductPage";
+import HomePage from "../pages/HomePage";
+import MainPage from "../components/homePage/MainPage";
+import AboutPage from "../pages/AboutPage";
+import { CartContext } from "../context/CartContext";
+
+const PUBLIC_ROUTES = [
+  { id: 1, path: "/", element: <MainPage /> },
+  { id: 2, path: "/products", element: <ProductPage /> },
+  { id: 4, path: "/about", element: <AboutPage /> },
+  { id: 5, path: "/tickets", element: <HomePage /> },
+  { id: 8, path: "/cart", element: <CartContext /> },
+];
 
 const MainRoutes = () => {
-  const PUBLIC_ROUTES = [
-    { id: 1, link: "/", element: <MainPage /> },
-    { id: 2, link: "/products", element: <ProductPage /> },
-    { id: 3, link: "/edit/:id", element: <EditProduct /> },
-    { id: 4, link: "/about", element: <AboutPage /> },
-    // { id: 5, link: "/contacts", element: <ContactsPage /> },
-    { id: 6, link: "/admin", element: <AdminPage /> },
-    // { id: 7, link: "/cart", element: <CartPage /> },
-  ];
   return (
     <Routes>
-      {PUBLIC_ROUTES.map((elem) => (
-        <Route key={elem.id} path={elem.link} element={elem.element} />
+      {PUBLIC_ROUTES.map((item) => (
+        <Route path={item.path} element={item.element} key={item.id} />
       ))}
     </Routes>
   );
