@@ -167,7 +167,7 @@ const HomePage = () => {
               margin: "10px",
               width: "600px",
               height: "600px",
-              boxShadow: "1px",
+              boxShadow: "2px",
             }}
           >
             <img
