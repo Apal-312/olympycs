@@ -1,15 +1,30 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContextProvider";
 
 const Navbar = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user, handleLogOut, loading } = useAuth();
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorEl(null);
+  };
+
   const pages = [
     { id: 1, title: "Атлеты", link: "/athletes" },
-    { id: 2, title: "Админ", link: "/admin" },
-    { id: 3, title: "Виды", link: "/sports" },
-    { id: 4, title: "Let's Move", link: "/lets-move" },
+    { id: 2, title: "Виды", link: "/sports" },
+    { id: 3, title: "Let's Move", link: "/lets-move" },
+    { id: 4, title: "Билеты", link: "/tickets" },
   ];
+
+  if (user) {
+    pages.push({ id: 2, title: "Админ", link: "/admin" });
+  }
 
   return (
     <div style={styles.root}>
@@ -17,6 +32,7 @@ const Navbar = () => {
         <Toolbar style={styles.toolbar}>
           <div style={styles.leftItems}>
             <img
+              id="olympic-rings"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/800px-Olympic_rings_without_rims.svg.png"
               alt="Olympic Rings"
               style={{ ...styles.icon, width: "auto", height: 40 }}
@@ -50,16 +66,34 @@ const Navbar = () => {
             ))}
           </div>
           <div style={{ ...styles.rightItems, marginLeft: "auto" }}>
-            <IconButton
-              color="inherit"
-              component={Link}
-              to="/register"
-              style={styles.menuButton}
-            >
-              <Typography variant="body1" style={styles.menuItem}>
-                Регистрация
+            {!loading && (
+              <Typography style={{ color: "#000", marginRight: 10 }}>
+                {user ? "Hello, admin" : "Hello, guest"}
               </Typography>
-            </IconButton>
+            )}
+            {!loading && !user && (
+              <IconButton
+                color="inherit"
+                component={Link}
+                to="/register"
+                style={styles.menuButton}
+              >
+                <Typography variant="body1" style={styles.menuItem}>
+                  Регистрация
+                </Typography>
+              </IconButton>
+            )}
+            {!loading && user && (
+              <IconButton
+                color="inherit"
+                onClick={handleLogOut}
+                style={styles.menuButton}
+              >
+                <Typography variant="body1" style={styles.menuItem}>
+                  Выйти
+                </Typography>
+              </IconButton>
+            )}
           </div>
         </Toolbar>
       </AppBar>

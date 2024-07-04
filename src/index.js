@@ -5,14 +5,21 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import ProductContextProvider from "./components/context/ProductContextProvider";
 import FavoriteContextProvider from "./components/context/FavoriteContextProvider";
+import AuthContextProvider from "./components/context/AuthContextProvider";
 
-const root = createRoot(document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container);
+
 root.render(
-  <BrowserRouter>
-    <FavoriteContextProvider>
-      <ProductContextProvider>
-        <App />
-      </ProductContextProvider>
-    </FavoriteContextProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <FavoriteContextProvider>
+          <ProductContextProvider>
+            <App />
+          </ProductContextProvider>
+        </FavoriteContextProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
